@@ -266,7 +266,7 @@ class Baidu_Tieba_page_data:
             print(e)
         except EOFError as e:
             print(e)
-    
+        #写入文件
     def output_info(self,all_list_data,poster_img_list,poster_img,num):
         try:
             print(f"共获取了{len(all_list_data)}条吧友数据和{len(poster_img)}张吧友头像还有{len(poster_img_list)}张图片")
@@ -354,7 +354,7 @@ class Baidu_Tieba_page_data:
                 print(f"提取poster_img列表链接中下载或保存过程中发生未知错误: {img}, {e}")
 
     def run(self):
-        print("开始贴吧爬取任务")
+        print("------------------------------开始贴吧爬取任务！------------------------------")
         self.post_info()
         
 if __name__ in "__main__":
