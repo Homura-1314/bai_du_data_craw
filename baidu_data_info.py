@@ -302,7 +302,7 @@ class Baidu_Tieba_page_data:
                 if index != None: 
                     data = line_list[index]
                     floor = line.replace(data,"")
-                    line = floor + data
+                    line = data + floor
                 line = line.replace('=?',"")
                 with open(page_data_,'a',encoding='utf-8') as f:
                         f.write(line + "\n")
