@@ -16,8 +16,8 @@ import re
 class Baidu_Tieba_page_data:
     def __init__(self):
         self.proxies =  {
-                            'http': 'socks5h://127.0.0.1:7897',
-                            'https': 'socks5h://127.0.0.1:7897'
+                            'http': 'socks5h://xxx.x.x.x:xxxx',
+                            'https': 'socks5h://xxx.x.x.x:xxxx'
                         }
         self.hard = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
@@ -31,7 +31,7 @@ class Baidu_Tieba_page_data:
         self.img_son = "img_son" # 保存每一个子帖子图片的文件夹
         self.son_page = "son_page" # 保存子帖子的文件
         self.main_page_data = "main_page_data" # 保存主贴吧的数据
-        self.biadu_post = "https://tieba.baidu.com/f?kw=atri&ie=utf-8&pn=" # kw=输入的帖子,默认在第一页
+        self.biadu_post = "https://tieba.baidu.com/f?kw=你输入的贴吧名称&ie=utf-8&pn=" # kw=输入的帖子,默认在第一页
         self.session = requests.Session()
         self.post_data = self.session.get(url=self.biadu_post,headers=self.hard,proxies=self.proxies,timeout=15)
         self.post_data.raise_for_status()
