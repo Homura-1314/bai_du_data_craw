@@ -294,12 +294,12 @@ class Baidu_Tieba_page_data:
                     os.makedirs(path_data,exist_ok=True)
                 page_text = self.son_page + f"{num + 1}.txt"
                 page_data_ = os.path.join(path_data,page_text)
-                index = None
+                index = -1
                 line_list = line.split('=?')
                 for i,x in enumerate(line_list):
                     if x[-1] in "楼" and len(x) == 2:
                         index = i
-                if index != None: 
+                if index != -1: 
                     data = line_list[index]
                     floor = line.replace(data,"")
                     line = data + floor
