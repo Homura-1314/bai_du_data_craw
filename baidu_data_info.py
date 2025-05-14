@@ -87,7 +87,7 @@ class Baidu_Tieba_page_data:
         check_number = self.check_number()
         check_number =check_number[0].replace("</p>","")
         with open(path_data,'a',encoding='utf-8') as f:
-            data = f"""{title}\n{focus},{focus_}人\n{check_number}个\n"""
+            data = f"""{title}\n今日{focus},{focus_}人\n{check_number}个\n"""
             f.write(data)
             self.post_main_count += 1
             print(f'---------------------------------------已处理贴吧数据{self.post_main_count}条----------------------------------------------')
@@ -298,8 +298,11 @@ class Baidu_Tieba_page_data:
                 index = -1
                 line_list = line.split('=?')
                 for i,x in enumerate(line_list):
+                    if x == '':
+                        continue
                     if x[-1] in "楼" and len(x) == 2:
                         index = i
+                        break
                 if index != -1: 
                     data = line_list[index]
                     floor = line.replace(data,"")
