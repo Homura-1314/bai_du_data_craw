@@ -142,7 +142,7 @@ class Baidu_Tieba_page_data:
                 at_time = ''.join("最后回复的时间:" + at_time[0].strip())
                 if "-" not in at_time:
                     at_time = "今天" + at_time
-                all_data = f"帖子标题:{title_text}\t{author}\t{release_time}\t{at_time}\t{reply_num}个\n"
+                all_data = f"帖子标题:{title_text}\t{author}\t{release_time}\t{at_time}\tn今日{reply_num}个\n"
                     
                 path_ = os.path.join(self.main_page_data,self.path_all_main_post)
                 with open(path_,'a',encoding='utf-8') as f:
@@ -195,8 +195,15 @@ class Baidu_Tieba_page_data:
                 # print(line.xpath('./span[1]/text()'))
                 # print(line.xpath('./span[2]/text()'))
             print(f"---------------------------------------当前帖子总共有{number_of_pages_list[0][0]}条回复贴----------------------------------------------")
+            if int(number_of_pages_list[0][0]) > 30: # 你可根据回复贴数量,来查看自己是否需要这么多
+                print("不符合需求，跳过当前循环")
+                return
             number = int(number_of_pages_list[1][0])
             n = number
+            all_list_data = [] # 收集搂的文本等内容
+            # 对每层搂进行处理
+            poster_img_list = [] # 存储搂主发的图片链接
+            poster_img = [] # 存储楼主头像链接
             # print(n)
             for index in range(n):
                 time.sleep(2)
@@ -228,8 +235,10 @@ class Baidu_Tieba_page_data:
                     all_list_data.append(data)
                     poster_img_list.append(img)
                     poster_img.append(img_poster_tou)
-                with ThreadPoolExecutor(max_workers=10) as extsts:
-                    extsts.submit(self.output_info,all_list_data,poster_img_list,poster_img,num)
+                    time.sleep(0.8)
+                time.sleep(0.9)
+            with ThreadPoolExecutor(max_workers=10) as extsts:
+                extsts.submit(self.output_info,all_list_data,poster_img_list,poster_img,num)
                     time.sleep(0.8)
         except requests.exceptions.RequestException as e:
             print(f"错误：访问页面失败。URL: {url_}，原因: {e}")
