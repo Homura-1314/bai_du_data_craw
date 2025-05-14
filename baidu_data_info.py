@@ -25,7 +25,7 @@ class Baidu_Tieba_page_data:
         }
         self.baidu_url = "https://tieba.baidu.com/" # 用于拼接子帖子的链接
         self.damain = "https://gss0.bdstatic.com/6LZ1dD3d1sgCo2Kml5_Y_D3/sys/portrait/item/" # 用于拼接头像图片链接
-        self.url = "https://tieba.baidu.com/p/9683804480"
+        self.url = "https://tieba.baidu.com/你想爬取的单个帖子的id" # 如果你只是想爬取单个帖子,在son_subpage方法中开始的注释解掉，函数从son_subpage启动即可
         self.page_data = "paged_data" # 保存帖子的文件夹
         self.img_path = "img_folder" # 保存吧友头像和所发的图片的文件夹
         self.img_son = "img_son" # 保存每一个子帖子图片的文件夹
@@ -179,6 +179,7 @@ class Baidu_Tieba_page_data:
     # 处理子帖子内容
     def son_subpage(self,url_,num):
         try:
+            # url = self.url
             time.sleep(3)
             url = self.baidu_url + url_
             url_data = self.session.get(url=url,headers=self.hard,proxies=self.proxies,timeout=random.randint(5,20))
@@ -231,9 +232,9 @@ class Baidu_Tieba_page_data:
                     extsts.submit(self.output_info,all_list_data,poster_img_list,poster_img,num)
                     time.sleep(0.8)
         except requests.exceptions.RequestException as e:
-            print(f"错误：访问页面失败。URL: {self.url}，原因: {e}")
+            print(f"错误：访问页面失败。URL: {url_}，原因: {e}")
         except Exception as e:
-            print(f"页面时发生未知错误: {self.url}, {e}")
+            print(f"页面时发生未知错误: {url_}, {e}")
 
         """
         https://gss0.bdstatic.com/6LZ1dD3d1sgCo2Kml5_Y_D3/sys/portrait/item/tb.1.8ee95ece.8OWfmn7gMV8qyGyOZH7Hjw?t=1743135592
