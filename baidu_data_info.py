@@ -97,6 +97,7 @@ class Baidu_Tieba_page_data:
         self.focus_number_()
         for index in range(0,3): # 默认最多爬3页,想爬更多自行调整参数
             url = self.biadu_post + f"{index * 50}"
+            time.sleep(random.uniform(2, 6))
             response = self.session.get(url=url,headers=self.hard,proxies=self.proxies,timeout=15)
             time.sleep(2)
             response.raise_for_status()
@@ -151,7 +152,7 @@ class Baidu_Tieba_page_data:
                     print(f'---------------------------------------已处理贴吧数据{self.post_main_count}条----------------------------------------------')
             for i,url in enumerate(list_son_url):
                 self.son_subpage(url,i)
-                time.sleep(0.4)
+                time.sleep(random.uniform(2, 6))
     
     def top_post(self,post_all):
         data = post_all[0].xpath('.//a[@class="j_th_tit "]')[0]
@@ -180,7 +181,7 @@ class Baidu_Tieba_page_data:
     def son_subpage(self,url_,num):
         try:
             # url = self.url
-            time.sleep(3)
+            time.sleep(random.uniform(2, 6))
             url = self.baidu_url + url_
             url_data = self.session.get(url=url,headers=self.hard,proxies=self.proxies,timeout=random.randint(5,20))
             url_data.raise_for_status()
@@ -206,7 +207,7 @@ class Baidu_Tieba_page_data:
             poster_img = [] # 存储楼主头像链接
             # print(n)
             for index in range(n):
-                time.sleep(2)
+                time.sleep(random.uniform(2, 6))
                 print(f"---------------------------------------正在处理第{index + 1}页-----------------------------------------------------")
                 print(f"---------------------------------------还剩{n - index - 1}页待处理---------------------------------------")
                 # 当前页面帖子用户的名称(不含评论回复的名称)
@@ -235,11 +236,11 @@ class Baidu_Tieba_page_data:
                     all_list_data.append(data)
                     poster_img_list.append(img)
                     poster_img.append(img_poster_tou)
-                    time.sleep(0.8)
-                time.sleep(0.9)
+                   time.sleep(random.uniform(2, 6))
+               time.sleep(random.uniform(2, 6))
             with ThreadPoolExecutor(max_workers=10) as extsts:
                 extsts.submit(self.output_info,all_list_data,poster_img_list,poster_img,num)
-                    time.sleep(0.8)
+                    time.sleep(random.uniform(2, 6))
         except requests.exceptions.RequestException as e:
             print(f"错误：访问页面失败。URL: {url_}，原因: {e}")
         except Exception as e:
@@ -280,6 +281,7 @@ class Baidu_Tieba_page_data:
     def output_info(self,all_list_data,poster_img_list,poster_img,num):
         try:
             print(f"共获取了{len(all_list_data)}条吧友数据和{len(poster_img)}张吧友头像还有{len(poster_img_list)}张图片")
+            time.sleep(random.uniform(2, 6))
             for line,img in zip(all_list_data,poster_img):
                 line:str
                 img:str
@@ -293,6 +295,7 @@ class Baidu_Tieba_page_data:
                 img_folder_ = os.path.join(path,path_img)
                 avatar_headers = self.hard.copy()
                 avatar_headers["Referer"] = self.baidu_url
+                time.sleep(random.uniform(2, 6))
                 data_img = self.session.get(url=img,headers=avatar_headers,timeout=15,proxies=self.proxies,stream=True)
                 data_img.raise_for_status()
                 with open(img_folder_,'wb') as f:
@@ -331,6 +334,7 @@ class Baidu_Tieba_page_data:
                         continue
                     img_hard = self.hard.copy()
                     img_hard["referer"] = self.baidu_url
+                    time.sleep(random.uniform(2, 3))
                     img_ = self.session.get(url=url,headers=img_hard,proxies=self.proxies,timeout=15,stream=True) # 对图片发起请求
                     img_.raise_for_status()
                     # 尝试从 URL 的最后一部分提取，并处理可能的查询参数
@@ -346,7 +350,7 @@ class Baidu_Tieba_page_data:
                             f.write(chunk)
                     with self.tcount_lock:
                         self.img_count += 1
-                    time.sleep(0.4)
+                    time.sleep(random.uniform(2, 6))
             except requests.exceptions.RequestException as e:
                     print(f"错误：提取poster_img_list列表下载图片失败。URL: {url}，原因: {e}")
                     if isinstance(e, requests.exceptions.HTTPError) and e.response.status_code == 403:
