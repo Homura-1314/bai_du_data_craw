@@ -236,7 +236,6 @@ class Baidu_Tieba_page_data:
                     all_list_data.append(data)
                     poster_img_list.append(img)
                     poster_img.append(img_poster_tou)
-                   time.sleep(random.uniform(2, 6))
                time.sleep(random.uniform(2, 6))
             with ThreadPoolExecutor(max_workers=10) as extsts:
                 extsts.submit(self.output_info,all_list_data,poster_img_list,poster_img,num)
@@ -329,7 +328,7 @@ class Baidu_Tieba_page_data:
             try:
                 for i,url in enumerate(poster_img_list):
                     with self.tcount_lock:
-                        print(f"---------------------------------------开始处理第{self.img_count + 1}张图片---------------------------------------")
+                        print(f"---------------------------------------开始处理第{i + 1}张图片---------------------------------------")
                     if not url or not isinstance(url, str):
                         continue
                     img_hard = self.hard.copy()
