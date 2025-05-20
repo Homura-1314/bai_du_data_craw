@@ -374,6 +374,6 @@ class Baidu_Tieba_page_data:
         self.post_info()
         
 if __name__ == "__main__":
-    dome = Baidu_Tieba_page_data() # 获得类实例
+    dome = Baidu_Tieba_page_data()
     dome.run()
     print(f"共爬取了主帖子数量{dome.post_main_count}条帖子，{dome.user_data_count}条吧友数据\n和{dome.img_count}吧友的图片\n{dome.user_avatar_img}张吧友的头像")
