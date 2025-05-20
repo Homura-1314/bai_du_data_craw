@@ -8,11 +8,7 @@ import os
 from concurrent.futures import ThreadPoolExecutor
 import threading
 import re
-'''
-需要的第三方模块模块有:lxml,requests
-如果没有这些,自行pip或uv下载
 
-'''
 class Baidu_Tieba_page_data:
     def __init__(self):
         self.proxies =  {
