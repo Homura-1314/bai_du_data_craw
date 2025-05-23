@@ -139,7 +139,7 @@ class Baidu_Tieba_page_data:
                 at_time = ''.join("最后回复的时间:" + at_time[0].strip())
                 if "-" not in at_time:
                     at_time = "今天" + at_time
-                all_data = f"帖子标题:{title_text}\t{author}\t{release_time}\t{at_time}\tn今日{reply_num}个\n"
+                all_data = f"帖子标题:{title_text}\t{author}\t{release_time}\t{at_time}\t今日{reply_num}个\n"
                     
                 path_ = os.path.join(self.main_page_data,self.path_all_main_post)
                 with open(path_,'a',encoding='utf-8') as f:
@@ -168,7 +168,7 @@ class Baidu_Tieba_page_data:
         # print(author,release_time)
         all_data_v3 = (
             f"-----------------------------------------------------------------------------------------------\n"
-            f"{top_text}帖子标题:{title_text}{author}\t发布时间:{release_time[0]}\t{reply_num}个\n"
+            f"{top_text}帖子标题:{title_text}{author}:\t发布时间:{release_time[0]}\t{reply_num}个\n"
             f"------------------------------------------------------------------------------------------------\n"
         )
         return all_data_v3,title_href
